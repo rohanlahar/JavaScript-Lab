@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login Form</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --primary: #5a67d8;
+            --primary-hover: #4c51bf;
+            --success: #38a169;
+            --error: #e53e3e;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            color: var(--text-main);
+            margin-bottom: 8px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Error Box Styling */
+        .error-box {
+            background: #fff5f5;
+            border-left: 4px solid var(--error);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-box.active {
+            display: block;
+        }
+
+        .error-title {
+            color: #c53030;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .error-list {
+            list-style-type: none;
+        }
+
+        .error-item {
+            color: var(--error);
+            font-size: 13px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-item::before {
+            content: "✕";
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .success-message {
+            background: #f0fff4;
+            border: 1px solid var(--success);
+            color: #22543d;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            margin-bottom: 20px;
+        }
+        
+        .success-message.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Please enter your credentials to log in</p>
+
+        <div id="successMessage" class="success-message">
+            ✓ Login Successful!
+        </div>
+
+        <div id="errorBox" class="error-box">
+            <div class="error-title">Please fix the following password errors:</div>
+            <ul id="errorList" class="error-list"></ul>
+        </div>
+
+        <form id="loginForm" onsubmit="validateForm(event)">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••••••">
+            </div>
+
+            <button type="submit" class="btn-submit">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const errorBox = document.getElementById('errorBox');
+            const errorList = document.getElementById('errorList');
+            const successMessage = document.getElementById('successMessage');
+
+            // Reset UI states
+            errorList.innerHTML = '';
+            errorBox.classList.remove('active');
+            successMessage.classList.remove('active');
+
+            let errors = [];
+
+            // Condition 1: Cannot be empty
+            if (password.length === 0) {
+                errors.push("Password cannot be empty.");
+            } else {
+                // Condition 2: At least 10 characters
+                if (password.length < 10) {
+                    errors.push("Must be at least 10 characters long.");
+                }
+
+                // Condition 3: No spaces
+                if (/\s/.test(password)) {
+                    errors.push("Must not contain spaces.");
+                }
+
+                // Condition 4: Must start with a capital letter
+                if (!/^[A-Z]/.test(password)) {
+                    errors.push("Must start with a capital letter.");
+                }
+
+                // Condition 5: Must contain special characters
+                if (!/[!@#$%^&*(),.?":{}|<>_\-+= \[[\]~`]/.test(password)) {
+                    errors.push("Must contain at least one special character.");
+                }
+            }
+
+            // Display Results
+            if (errors.length > 0) {
+                errors.forEach(function(errorText) {
+                    const li = document.createElement('li');
+                    li.className = 'error-item';
+                    li.textContent = errorText;
+                    errorList.appendChild(li);
+                });
+                errorBox.classList.add('active');
+            } else {
+                successMessage.classList.add('active');
+                document.getElementById('loginForm').reset();
+            }
+        }
+    </script>
+
+</body>
+</html>
+
