@@ -1,0 +1,189 @@
+]<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Grade Calculator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#6a11cb,#2575fc);
+}
+
+.container{
+width:420px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.25);
+border-radius:20px;
+padding:30px;
+box-shadow:0 15px 35px rgba(0,0,0,0.3);
+color:white;
+}
+
+h2{
+text-align:center;
+margin-bottom:25px;
+letter-spacing:1px;
+}
+
+label{
+display:block;
+margin-top:15px;
+margin-bottom:6px;
+font-weight:600;
+}
+
+input{
+width:100%;
+padding:12px;
+border:none;
+outline:none;
+border-radius:10px;
+font-size:15px;
+transition:.3s;
+}
+
+input:focus{
+transform:scale(1.02);
+box-shadow:0 0 10px rgba(255,255,255,0.6);
+}
+
+button{
+width:100%;
+margin-top:25px;
+padding:13px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 18px rgba(0,0,0,0.3);
+}
+
+#result{
+display:none;
+margin-top:25px;
+padding:18px;
+background:rgba(255,255,255,0.2);
+border-radius:12px;
+}
+
+#result h3{
+text-align:center;
+margin-bottom:15px;
+}
+
+#result p{
+margin:8px 0;
+}
+
+.grade{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:#ffe600;
+margin-top:15px;
+text-shadow:0 0 10px gold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🎓 Student Grade Calculator</h2>
+
+<label>Student Name</label>
+<input type="text" id="name" placeholder="Enter Student Name">
+
+<label>Subject Name</label>
+<input type="text" id="subject" placeholder="Enter Subject Name">
+
+<label>Marks</label>
+<input type="number" id="marks" placeholder="Enter Marks">
+
+<button onclick="calculateGrade()">Calculate Grade</button>
+
+<div id="result">
+<h3>Student Report</h3>
+
+<p id="student"></p>
+<p id="sub"></p>
+<p id="mark"></p>
+
+<div class="grade" id="grade"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function calculateGrade(){
+
+let name=document.getElementById("name").value;
+let subject=document.getElementById("subject").value;
+let marks=parseInt(document.getElementById("marks").value);
+
+if(name=="" || subject=="" || isNaN(marks)){
+alert("Please fill all details.");
+return;
+}
+
+let grade;
+
+if(marks>=90)
+grade="A+";
+else if(marks>=80 && marks<=90)
+grade="A";
+else if(marks>=66 && marks<=90)
+grade="B";
+else if(marks>=50 && marks<=65)
+grade="C";
+else
+grade="Fail";
+
+alert(
+"Student Name : "+name+
+"\nSubject : "+subject+
+"\nMarks : "+marks+
+"\nGrade : "+grade
+);
+
+document.getElementById("student").innerHTML="<b>Name:</b> "+name;
+document.getElementById("sub").innerHTML="<b>Subject:</b> "+subject;
+document.getElementById("mark").innerHTML="<b>Marks:</b> "+marks;
+document.getElementById("grade").innerHTML="Grade : "+grade;
+
+document.getElementById("result").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
+
+GRADING
