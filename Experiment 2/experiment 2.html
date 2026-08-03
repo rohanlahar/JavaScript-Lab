@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Shopping Bill Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    width:420px;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+    animation:fade 0.8s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    text-align:center;
+    color:#5b4bdb;
+    margin-bottom:20px;
+}
+
+p{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
+}
+
+label{
+    font-weight:600;
+    display:block;
+    margin-top:15px;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#5b4bdb;
+    outline:none;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#5b4bdb;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#4636d4;
+    transform:scale(1.02);
+}
+
+.result{
+    margin-top:25px;
+    background:#f4f6ff;
+    border-left:6px solid #5b4bdb;
+    padding:18px;
+    border-radius:10px;
+    display:none;
+}
+
+.result h2{
+    color:#333;
+    margin-bottom:10px;
+}
+
+.result p{
+    text-align:left;
+    color:#222;
+    margin:6px 0;
+}
+
+footer{
+    text-align:center;
+    margin-top:20px;
+    color:#888;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🛒 Online Shopping</h1>
+<p>Bill Calculator Using HTML, CSS and HTML5</p>
+
+<label>Customer Name</label>
+<input type="text" id="name" placeholder="Enter customer name">
+
+<label>Product Name</label>
+<input type="text" id="product" placeholder="Enter product">
+
+<label>Price (₹)</label>
+<input type="number" id="price" placeholder="Enter price">
+
+<label>Quantity</label>
+<input type="number" id="qty" placeholder="Enter quantity">
+
+<button onclick="calculateBill()">Calculate Bill</button>
+
+<div class="result" id="result">
+<h2>🧾 Bill Summary</h2>
+
+<p id="customer"></p>
+<p id="productName"></p>
+<p id="priceDisplay"></p>
+<p id="quantityDisplay"></p>
+<p id="discountDisplay"></p>
+<p id="totalDisplay"></p>
+
+</div>
+
+
+
+</div>
+
+<script>
+
+
+
+var websiteName = "ABC Online Store";
+
+let gst = 18;
+
+
+const isMember = true;
+
+
+let deliveryDate;
+
+let couponCode = null;
+
+console.log("Primitive Data Types");
+console.log("Website:",websiteName);
+console.log("GST:",gst);
+console.log("Member:",isMember);
+console.log("Delivery:",deliveryDate);
+console.log("Coupon:",couponCode);
+
+
+
+
+var shop = "Shopping Website";
+let items = 5;
+const country = "India";
+
+console.log(shop);
+console.log(items);
+console.log(country);
+
+
+
+
+console.log("Type Coercion");
+console.log("100" + 20);     //10020
+console.log("10" * 5);       //50
+
+
+
+
+console.log("Type Conversion");
+
+let number1 = Number("100");
+let number2 = Number("50");
+
+console.log(number1 + number2); //150
+
+
+
+
+function calculateBill(){
+
+let customer=document.getElementById("name").value;
+let product=document.getElementById("product").value;
+
+let price=Number(document.getElementById("price").value);
+let quantity=Number(document.getElementById("qty").value);
+
+if(customer=="" || product=="" || price<=0 || quantity<=0){
+
+alert("Please enter valid details.");
+
+return;
+
+}
+
+let subtotal=price*quantity;
+
+let discount=0;
+
+if(subtotal>=5000){
+
+discount=subtotal*0.10;
+
+}
+
+let gstAmount=(subtotal-discount)*0.18;
+
+let finalBill=(subtotal-discount)+gstAmount;
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("customer").innerHTML="<b>Customer :</b> "+customer;
+
+document.getElementById("productName").innerHTML="<b>Product :</b> "+product;
+
+document.getElementById("priceDisplay").innerHTML="<b>Price :</b> ₹"+price;
+
+document.getElementById("quantityDisplay").innerHTML="<b>Quantity :</b> "+quantity;
+
+document.getElementById("discountDisplay").innerHTML="<b>Discount :</b> ₹"+discount.toFixed(2);
+
+document.getElementById("totalDisplay").innerHTML="<b>Final Bill (Including 18% GST):</b> <span style='color:green;font-size:22px;'>₹"+finalBill.toFixed(2)+"</span>";
+
+}
+
+</script>
+
+</body>
+</html>
