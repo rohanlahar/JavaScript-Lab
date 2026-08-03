@@ -1,0 +1,174 @@
+MAIN HTML CODE
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    
+    <style>
+        /* Base Reset and Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Card Container */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* Typography */
+        h1 {
+            color: #333333;
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666666;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #357abd;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #eeeeee;
+            margin: 25px 0;
+        }
+
+        /* Dynamic Output Area */
+        #output h2 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+
+        #output p {
+            color: #555555;
+            margin: 0;
+            font-size: 16px;
+        }
+    </style>
+
+    <!-- Internal JavaScript -->
+    <script>
+        function showWelcome() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            
+            // Fixed unclosed <p> tag error in original code
+            document.getElementById("output").innerHTML = "<h2>Welcome, " + name + "</h2>" + "<p>Your age is: " + age + "</p>";
+            
+            console.log("User Name: " + name);
+            console.info("User Age: " + age);
+            console.warn("This is a warning message");
+            console.error("This is an error message (Demo purpose)");
+        }
+    </script>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>User Info</h1>
+        
+        <div class="form-group">
+            <label for="name">Enter Name:</label>
+            <input type="text" id="name" placeholder="Enter name">
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Enter Age:</label>
+            <input type="number" id="age" placeholder="Enter age">
+        </div>
+
+        <!-- Inline JavaScript -->
+        <button onclick="showWelcome(); greet();">
+            Submit
+        </button>
+        
+        <hr>
+        
+        <div id="output"></div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+SCRIPT.JS CODE
+
+function greet() {
+    alert("Welcome to JavaScript Programming!");
+
+    console.table([
+        {
+            Name: "Sample User",
+            Course: "JavaScript"
+        }
+    ]);
+
+    console.time("Execution");
+    console.timeEnd("Execution");
+    
+}
