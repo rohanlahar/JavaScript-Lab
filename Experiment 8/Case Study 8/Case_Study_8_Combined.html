@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form for Gym Admission - Case Study 8</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    color: black;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 540px;
+    background-color: white;
+    padding: 30px 35px;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px lightgray;
+}
+
+h2 {
+    color: darkblue;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.table-form {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #a3b8cc;
+    margin-bottom: 20px;
+    background-color: #f7faff;
+}
+
+.table-form th {
+    background-color: #9db2e8;
+    color: #1a237e;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid #829bc9;
+}
+
+.table-form td {
+    padding: 10px 14px;
+    border: 1px solid #c5d3e8;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.label-cell {
+    width: 38%;
+    font-weight: 600;
+    color: #222;
+    background-color: #eef3fc;
+}
+
+.value-cell {
+    width: 62%;
+    background-color: #ffffff;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    border-color: royalblue;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-item,
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.radio-item input,
+.checkbox-item input {
+    cursor: pointer;
+}
+
+.full-row-header {
+    background-color: #eef3fc;
+    font-weight: 600;
+    color: #222;
+    border: 1px solid #c5d3e8;
+    padding: 10px 14px;
+}
+
+.textarea-cell {
+    background-color: #ffffff;
+    border: 1px solid #c5d3e8;
+    padding: 10px 14px;
+}
+
+.action-row {
+    background-color: #eef3fc;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #c5d3e8;
+}
+
+#submitBtn {
+    padding: 9px 24px;
+    background-color: #e0e0e0;
+    color: #111;
+    border: 1px solid #999;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#submitBtn:hover {
+    background-color: #cfcfcf;
+}
+
+.error-msg {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+.summary-card {
+    display: none;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background-color: #f1f8e9;
+    border: 1px solid #81c784;
+    border-radius: 8px;
+    color: #1b5e20;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.summary-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2e7d32;
+    font-size: 16px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: gray;
+    border-top: 1px solid lightgray;
+    padding-top: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gym Admission Form</h2>
+
+        <form id="gymForm">
+            <table class="table-form">
+                <thead>
+                    <tr>
+                        <th style="width: 38%;">Name</th>
+                        <th style="width: 62%;">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label-cell">Name</td>
+                        <td class="value-cell">
+                            <input type="text" id="name" name="name" placeholder="Enter your name">
+                            <div class="error-msg" id="nameError"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Sex</td>
+                        <td class="value-cell">
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="sex" value="Male"> Male
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="sex" value="Female"> Female
+                                </label>
+                            </div>
+                            <div class="error-msg" id="sexError"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Eye color</td>
+                        <td class="value-cell">
+                            <select id="eyeColor" name="eyeColor">
+                                <option value="green">green</option>
+                                <option value="blue">blue</option>
+                                <option value="brown">brown</option>
+                                <option value="black">black</option>
+                                <option value="hazel">hazel</option>
+                            </select>
+                            <div class="error-msg" id="eyeColorError"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Check all that apply</td>
+                        <td class="value-cell">
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="over6Feet" value="Over 6 feet tall"> Over 6 feet tall
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="over200Pounds" value="Over 200 pounds"> Over 200 pounds
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="full-row-header">Describe your athletic ability:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="textarea-cell">
+                            <textarea id="ability" rows="5" placeholder="Enter details about your athletic ability..."></textarea>
+                            <div class="error-msg" id="abilityError"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="action-row">
+                            <button type="submit" id="submitBtn">Enter my information</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="resultCard" class="summary-card"></div>
+        </form>
+
+        <footer>
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+
+    <script>
+document.getElementById("name").addEventListener("input", function() {
+    let val = this.value.trim();
+    if (val === "") {
+        document.getElementById("nameError").innerHTML = "Name is required.";
+    } else if (!/^[A-Za-z ]+$/.test(val)) {
+        document.getElementById("nameError").innerHTML = "Only letters allowed.";
+    } else {
+        document.getElementById("nameError").innerHTML = "";
+    }
+});
+
+let sexRadios = document.getElementsByName("sex");
+for (let i = 0; i < sexRadios.length; i++) {
+    sexRadios[i].addEventListener("change", function() {
+        document.getElementById("sexError").innerHTML = "";
+    });
+}
+
+document.getElementById("ability").addEventListener("input", function() {
+    let val = this.value.trim();
+    if (val.length > 0) {
+        document.getElementById("abilityError").innerHTML = "";
+    }
+});
+
+document.getElementById("gymForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let name = document.getElementById("name").value.trim();
+    let sex = "";
+    for (let i = 0; i < sexRadios.length; i++) {
+        if (sexRadios[i].checked) {
+            sex = sexRadios[i].value;
+            break;
+        }
+    }
+    let eyeColor = document.getElementById("eyeColor").value;
+    let over6Feet = document.getElementById("over6Feet").checked;
+    let over200Pounds = document.getElementById("over200Pounds").checked;
+    let ability = document.getElementById("ability").value.trim();
+
+    let isValid = true;
+
+    if (name === "") {
+        document.getElementById("nameError").innerHTML = "Name is required.";
+        isValid = false;
+    } else if (!/^[A-Za-z ]+$/.test(name)) {
+        document.getElementById("nameError").innerHTML = "Only letters allowed.";
+        isValid = false;
+    } else {
+        document.getElementById("nameError").innerHTML = "";
+    }
+
+    if (sex === "") {
+        document.getElementById("sexError").innerHTML = "Please select your sex.";
+        isValid = false;
+    } else {
+        document.getElementById("sexError").innerHTML = "";
+    }
+
+    if (ability === "") {
+        document.getElementById("abilityError").innerHTML = "Please describe your athletic ability.";
+        isValid = false;
+    } else {
+        document.getElementById("abilityError").innerHTML = "";
+    }
+
+    let resultCard = document.getElementById("resultCard");
+
+    if (isValid) {
+        let appliedTraits = [];
+        if (over6Feet) appliedTraits.push("Over 6 feet tall");
+        if (over200Pounds) appliedTraits.push("Over 200 pounds");
+        let traitsDisplay = appliedTraits.length > 0 ? appliedTraits.join(", ") : "None";
+
+        resultCard.style.display = "block";
+        resultCard.innerHTML = "<h3>Admission Submitted Successfully!</h3>" +
+            "<p><b>Name:</b> " + name + "</p>" +
+            "<p><b>Sex:</b> " + sex + "</p>" +
+            "<p><b>Eye Color:</b> " + eyeColor + "</p>" +
+            "<p><b>Physical Attributes:</b> " + traitsDisplay + "</p>" +
+            "<p><b>Athletic Ability:</b> " + ability + "</p>";
+
+        alert("Information submitted successfully!");
+    } else {
+        resultCard.style.display = "none";
+        resultCard.innerHTML = "";
+        alert("Please correct the errors before submitting.");
+    }
+});
+    </script>
+
+</body>
+</html>
