@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 6 - Case Studies</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: whitesmoke;
+}
+
+h2 {
+    text-align: center;
+    color: darkblue;
+}
+
+h3 {
+    color: darkblue;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #fafafa;
+} 
+
+input, textarea, button {
+    padding: 10px;
+    margin: 10px 0;
+    width: 95%;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    width: 150px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: blue;
+}
+
+#result, #vowelResult {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Experiment 6 - Case Studies</h2>
+
+        <div class="box">
+            <h3>Case Study 1: Reverse a String</h3>
+            <label for="strInput"><b>Enter a String:</b></label><br>
+            <input type="text" id="strInput" placeholder="Enter string to reverse">
+            <br>
+            <button onclick="reverseString()">Reverse String</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="box">
+            <h3>Case Study 2: Vowel Counter in Paragraph</h3>
+            <label for="paragraphInput"><b>Enter a Paragraph:</b></label><br>
+            <textarea id="paragraphInput" rows="4" placeholder="Enter a paragraph to count vowels..."></textarea>
+            <br>
+            <button onclick="countVowels()">Count Vowels</button>
+            <div id="vowelResult"></div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 30px; font-size: 14px; color: gray; border-top: 1px solid lightgray; padding-top: 15px;">
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+    <script>
+function reverseString() {
+    let str = document.getElementById("strInput").value;
+    
+    if (str.trim() === "") {
+        document.getElementById("result").innerHTML = "<b style='color:red;'>Please enter a string!</b>";
+        return;
+    }
+
+    let reversedStr = str.split("").reverse().join("");
+
+    document.getElementById("result").innerHTML = `
+        <p><b>Original String:</b> ${str}</p>
+        <p><b>Reversed String:</b> ${reversedStr}</p>
+    `;
+}
+
+function countVowels() {
+    let paragraph = document.getElementById("paragraphInput").value;
+
+    if (paragraph.trim() === "") {
+        document.getElementById("vowelResult").innerHTML = "<b style='color:red;'>Please enter a paragraph!</b>";
+        return;
+    }
+
+    let vowels = paragraph.match(/[aeiou]/gi);
+    let vowelCount = vowels ? vowels.length : 0;
+    let vowelsList = vowels ? vowels.join(", ") : "No vowels found";
+
+    document.getElementById("vowelResult").innerHTML = `
+        <p><b>Vowels Found:</b> ${vowelsList}</p>
+        <p><b>Total Number of Vowels:</b> <b>${vowelCount}</b></p>
+    `;
+}
+    </script>
+</body>
+</html>
