@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Methods & Regular Expressions</title>
+    <style>
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-main: #f8fafc;
+    --surface: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 10px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--surface);
+    padding: 32px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.app-header h1 {
+    color: #1e3a8a;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+input, textarea {
+    padding: 12px;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.action-group {
+    margin-top: 4px;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.output-container {
+    margin-top: 10px;
+}
+
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    color: #1e3a8a;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 14px;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.card small {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.code-block {
+    font-family: monospace;
+    background: #e2e8f0;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #0f172a;
+}
+
+.reversed-text {
+    font-family: monospace;
+    color: #475569;
+    letter-spacing: 1px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge.success {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.badge.danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.error-card {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.error-msg {
+    color: #b91c1c;
+    font-weight: 500;
+}
+
+.app-footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>String Methods & Regular Expressions</h1>
+        <div class="box">
+            <div class="input-group">
+                <label for="paragraph"><b>Enter a paragraph:</b></label>
+                <textarea id="paragraph" rows="5">Javascript is a powerful programming language. It is widely used for web development.</textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="email"><b>Enter Email:</b></label>
+                <input type="text" id="email" placeholder="Enter your email">
+            </div>
+
+            <button onclick="processString()">Process</button>
+            <div id="output"></div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 30px; font-size: 14px; color: gray; border-top: 1px solid lightgray; padding-top: 15px;">
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+    <script>
+function processString() {
+    let paragraph = document.getElementById("paragraph").value;
+    let email = document.getElementById("email").value; 
+
+    let words = paragraph.split(/\s+/);
+
+    let vowels = paragraph.match(/[aeiou]/gi); 
+    let vowelCount = vowels ? vowels.length : 0; 
+
+    let replacedParagraph = paragraph.replace(
+        /JavaScript/gi, 
+        "JavaScript Programming"
+    ); 
+
+    let searchWord = "powerful"; 
+    let position = paragraph.indexOf(searchWord); 
+
+    let emailRegex = 
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
+
+    let emailResult; 
+
+    if(emailRegex.test(email)) {
+        emailResult = "Valid Email Address"; 
+    } else {
+        emailResult = "Invalid Email Address";
+    }
+    let emailText = 
+    "For queries contact student@example.com or admin@college.edu"; 
+
+    let extractedEmails = emailText.match(
+        /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g 
+    ); 
+
+    let reeversedParagraph = paragraph.split("").reverse().join(""); 
+
+    document.getElementById("output").innerHTML = `
+    <h3>1. Original Paragraph</h3>
+    <p>${paragraph}</p> 
+
+    <h3> 2. split() - Words </h3>
+    <p> ${words.join(",")}</p>
+
+    <h3> 3. match() - Vowels </h3>
+    <p> ${vowels ? vowels.join(", ") : "NO VOWELS FOUND!"}</p>
+
+    <h3> 4. Vowel Count </h3>
+    <p> Total number of vowels: <b>${vowelCount}</b></p>
+
+    <h3> 5. replace() - Replace Text </h3>
+    <p> ${replacedParagraph} </p>
+
+    <h3> 6. indexOf() - Search Word </h3>
+    <p>
+        Position of "<b>${searchWord}</b>":
+        <b>${position}</b>
+    </p>
+
+    <h3> 7. Email Validation using Regex </h3>
+    <p>
+        Email: <b>${email}</b><br>
+        Result: <b>${emailResult}</b>
+    </p>
+
+    <h3> 8. Regex - Extracted Information </h3>
+    <p>
+        ${extractedEmails ? extractedEmails.join("<br>") : "NO EMAIL ADDRESS FOUND!"}
+    </p>
+
+    <h3> 9. Reversed Paragraph </h3>
+    <p> ${reeversedParagraph} </p>
+    `;
+}
+    </script>
+</body>
+</html>
