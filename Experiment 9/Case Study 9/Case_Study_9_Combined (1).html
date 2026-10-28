@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Planner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 720px;
+    background-color: white;
+    padding: 35px 30px;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px lightgray;
+    text-align: center;
+}
+
+h2 {
+    color: darkblue;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 24px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #555;
+    background-color: #ffffff;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #777;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.th-main {
+    background-color: #e8ecf2;
+    font-weight: 700;
+    color: #1a237e;
+}
+
+.th-sub {
+    background-color: #f1f4f8;
+    font-weight: 600;
+    color: #333;
+}
+
+.day-cell {
+    background-color: #f7f9fc;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.day-cell:hover {
+    background-color: #e3edf9;
+}
+
+.topic-cell {
+    background-color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.topic-cell:hover {
+    background-color: #f0f4ff;
+}
+
+.slot-yellow {
+    background-color: #fff9c4;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.slot-yellow:hover {
+    filter: brightness(0.92);
+}
+
+.slot-purple {
+    background-color: #c5cae9;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.slot-purple:hover {
+    filter: brightness(0.92);
+}
+
+.slot-lightgreen {
+    background-color: #c8e6c9;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.slot-lightgreen:hover {
+    filter: brightness(0.92);
+}
+
+.edit-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: gray;
+    border-top: 1px solid lightgray;
+    padding-top: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Schedule Planner</h2>
+        <p class="subtitle">Click on any schedule session or topic to view details.</p>
+
+        <div class="table-wrapper">
+            <table class="schedule-table" id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th rowspan="3" class="th-main">Day</th>
+                        <th colspan="3" class="th-main">Seminar</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="th-sub">Schedule</th>
+                        <th rowspan="2" class="th-main">Topic</th>
+                    </tr>
+                    <tr>
+                        <th class="th-sub">Begin</th>
+                        <th class="th-sub">End</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2" class="day-cell" data-day="Monday">Monday</td>
+                        <td rowspan="2" class="slot-yellow" data-day="Monday" data-time="8:00 a.m. - 5:00 p.m." data-topic="Introduction to XML & Validity: DTD and Relax NG">8:00 a.m.</td>
+                        <td rowspan="2" class="slot-purple" data-day="Monday" data-time="8:00 a.m. - 5:00 p.m." data-topic="Introduction to XML & Validity: DTD and Relax NG">5:00 p.m.</td>
+                        <td class="topic-cell" data-day="Monday" data-time="8:00 a.m. - 12:00 p.m." data-topic="Introduction to XML">Introduction to XML</td>
+                    </tr>
+                    <tr>
+                        <td class="topic-cell" data-day="Monday" data-time="1:00 p.m. - 5:00 p.m." data-topic="Validity: DTD and Relax NG">Validity: DTD and Relax NG</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" class="day-cell" data-day="Tuesday">Tuesday</td>
+                        <td class="slot-yellow" data-day="Tuesday" data-time="8:00 a.m. - 11:00 a.m." data-topic="XPath">8:00 a.m.</td>
+                        <td class="slot-yellow" data-day="Tuesday" data-time="8:00 a.m. - 11:00 a.m." data-topic="XPath">11:00 a.m.</td>
+                        <td class="topic-cell" data-day="Tuesday" data-time="8:00 a.m. - 11:00 a.m." data-topic="XPath">XPath</td>
+                    </tr>
+                    <tr>
+                        <td class="slot-lightgreen" data-day="Tuesday" data-time="11:00 a.m. - 2:00 p.m." data-topic="XPath (Continuation)">11:00 a.m.</td>
+                        <td class="slot-lightgreen" data-day="Tuesday" data-time="11:00 a.m. - 2:00 p.m." data-topic="XPath (Continuation)">2:00 p.m.</td>
+                        <td rowspan="2" class="topic-cell" data-day="Tuesday" data-time="11:00 a.m. - 5:00 p.m." data-topic="XSL Transformations">XSL Transformations</td>
+                    </tr>
+                    <tr>
+                        <td class="slot-lightgreen" data-day="Tuesday" data-time="2:00 p.m. - 5:00 p.m." data-topic="XSL Transformations">2:00 p.m.</td>
+                        <td class="slot-purple" data-day="Tuesday" data-time="2:00 p.m. - 5:00 p.m." data-topic="XSL Transformations">5:00 p.m.</td>
+                    </tr>
+                    <tr>
+                        <td class="day-cell" data-day="Wednesday">Wednesday</td>
+                        <td class="slot-yellow" data-day="Wednesday" data-time="8:00 a.m. - 12:00 p.m." data-topic="XSL Formatting Objects">8:00 a.m.</td>
+                        <td class="slot-lightgreen" data-day="Wednesday" data-time="8:00 a.m. - 12:00 p.m." data-topic="XSL Formatting Objects">12:00 p.m.</td>
+                        <td class="topic-cell" data-day="Wednesday" data-time="8:00 a.m. - 12:00 p.m." data-topic="XSL Formatting Objects">XSL Formatting Objects</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="edit-panel" id="editPanel">
+            <h3 style="margin-top: 0; font-size: 16px;">Edit Selected Topic / Item</h3>
+            <p id="selectedInfo" style="font-size: 13px; color: #555; margin-bottom: 10px;">Select a cell from the table to edit.</p>
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                <input type="text" id="editInput" placeholder="Click any table cell to edit" style="padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; width: 60%; min-width: 220px;">
+                <button type="button" id="saveBtn" style="padding: 8px 16px; background-color: royalblue; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer;">Save</button>
+                <button type="button" id="resetBtn" style="padding: 8px 14px; background-color: #6c757d; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer;">Reset Default</button>
+            </div>
+        </div>
+
+        <footer>
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+
+    <script>
+let cells = document.querySelectorAll("#scheduleTable tbody td");
+let editInput = document.getElementById("editInput");
+let saveBtn = document.getElementById("saveBtn");
+let resetBtn = document.getElementById("resetBtn");
+let selectedInfo = document.getElementById("selectedInfo");
+
+let currentCellIndex = null;
+
+// Assign an index to each cell and load saved modifications
+cells.forEach(function(cell, index) {
+    cell.setAttribute("data-cell-index", index);
+
+    cell.addEventListener("click", function() {
+        currentCellIndex = index;
+        let day = this.getAttribute("data-day") || "N/A";
+        let time = this.getAttribute("data-time") || "N/A";
+        let text = this.innerText.trim();
+
+        // Update edit input
+        if (editInput) {
+            editInput.value = text;
+            editInput.focus();
+        }
+
+        if (selectedInfo) {
+            selectedInfo.innerText = "Selected (" + day + ", " + time + "): " + text;
+        }
+
+        // Save current active selection to sessionStorage
+        sessionStorage.setItem("lastSelectedCell", JSON.stringify({
+            index: index,
+            day: day,
+            time: time,
+            content: text
+        }));
+
+        // Show alert box on click event
+        alert("Schedule Details:\nDay: " + day + "\nTime: " + time + "\nTopic/Session: " + text);
+    });
+});
+
+// Save edited content to localStorage and sessionStorage
+if (saveBtn) {
+    saveBtn.addEventListener("click", function() {
+        if (currentCellIndex === null) {
+            alert("Please click on a table cell first to select what to edit.");
+            return;
+        }
+
+        let newText = editInput.value.trim();
+        if (newText === "") {
+            alert("Please enter some text to save.");
+            return;
+        }
+
+        let targetCell = cells[currentCellIndex];
+        targetCell.innerText = newText;
+
+        // Retrieve existing saved edits from localStorage
+        let edits = JSON.parse(localStorage.getItem("scheduleEdits") || "{}");
+        edits[currentCellIndex] = newText;
+
+        // Save to localStorage (persists across page reloads)
+        localStorage.setItem("scheduleEdits", JSON.stringify(edits));
+
+        // Save last edit activity to sessionStorage
+        sessionStorage.setItem("lastEditedTime", new Date().toLocaleTimeString());
+
+        if (selectedInfo) {
+            selectedInfo.innerText = "Saved successfully: " + newText;
+        }
+        alert("Schedule updated and saved to storage!");
+    });
+}
+
+// Reset edits and clear localStorage
+if (resetBtn) {
+    resetBtn.addEventListener("click", function() {
+        localStorage.removeItem("scheduleEdits");
+        sessionStorage.removeItem("lastSelectedCell");
+        sessionStorage.removeItem("lastEditedTime");
+        location.reload();
+    });
+}
+
+// Load saved edits from localStorage on page load
+window.addEventListener("DOMContentLoaded", function() {
+    let edits = JSON.parse(localStorage.getItem("scheduleEdits") || "{}");
+    for (let index in edits) {
+        if (cells[index]) {
+            cells[index].innerText = edits[index];
+        }
+    }
+
+    // Check if there was a previous session selection
+    let sessionData = sessionStorage.getItem("lastSelectedCell");
+    if (sessionData && selectedInfo) {
+        let parsed = JSON.parse(sessionData);
+        selectedInfo.innerText = "Resumed session cell (" + parsed.day + "): " + parsed.content;
+    }
+});
+    </script>
+
+</body>
+</html>
