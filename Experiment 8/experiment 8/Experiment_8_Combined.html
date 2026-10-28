@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Admission Form</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    color: black;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 560px;
+    background-color: white;
+    padding: 35px 40px;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px lightgray;
+}
+
+h2 {
+    color: darkblue;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.mandatory-note {
+    color: red;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.form-row label {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+}
+
+.input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-container input,
+.input-container select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.2s;
+}
+
+.input-container input:focus,
+.input-container select:focus {
+    border-color: royalblue;
+}
+
+.required-star {
+    color: red;
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    user-select: none;
+}
+
+.error-msg {
+    color: red;
+    font-size: 12px;
+    margin-left: 140px;
+    margin-bottom: 8px;
+    min-height: 14px;
+}
+
+.button-row {
+    margin-top: 18px;
+}
+
+button {
+    padding: 10px 24px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+
+.success-msg {
+    display: none;
+    margin-top: 20px;
+    padding: 12px 16px;
+    background-color: lightgreen;
+    color: darkgreen;
+    border: 1px solid green;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gym Admission Form</h2>
+
+        <form id="gymForm">
+            <div class="mandatory-note">*Mandatory to fill</div>
+
+            <div class="form-row">
+                <label for="name">Full Name:</label>
+                <div class="input-container">
+                    <input type="text" id="name" placeholder="Enter your full name">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="nameError"></div>
+
+            <div class="form-row">
+                <label for="age">Age:</label>
+                <div class="input-container">
+                    <input type="number" id="age" placeholder="Enter age (16-60)">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="ageError"></div>
+
+            <div class="form-row">
+                <label for="email">Email:</label>
+                <div class="input-container">
+                    <input type="email" id="email" placeholder="Enter email address">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="emailError"></div>
+
+            <div class="form-row">
+                <label for="mobile">Mobile Number:</label>
+                <div class="input-container">
+                    <input type="text" id="mobile" placeholder="Enter 10-digit mobile number">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="mobileError"></div>
+
+            <div class="form-row">
+                <label for="plan">Membership Plan:</label>
+                <div class="input-container">
+                    <select id="plan">
+                        <option value="">Select Plan</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Quarterly">Quarterly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="planError"></div>
+
+            <div class="button-row">
+                <button type="submit" id="submitBtn">Submit</button>
+            </div>
+
+            <div id="result" class="success-msg"></div>
+        </form>
+
+        <footer style="text-align: center; margin-top: 30px; font-size: 14px; color: gray; border-top: 1px solid lightgray; padding-top: 15px;">
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+
+    <script>
+document.getElementById("name").addEventListener("input", function() {
+    let name = this.value;
+    if (/^[A-Za-z ]+$/.test(name)) {
+        document.getElementById("nameError").innerHTML = "";
+    } else {
+        document.getElementById("nameError").innerHTML = "Only letters allowed.";
+    }
+});
+
+document.getElementById("age").addEventListener("blur", function() {
+    let age = this.value;
+    if (age >= 16 && age <= 60) {
+        document.getElementById("ageError").innerHTML = "";
+    } else {
+        document.getElementById("ageError").innerHTML = "Age must be between 16 and 60.";
+    }
+});
+
+document.getElementById("email").addEventListener("input", function() {
+    let email = this.value;
+    let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (pattern.test(email)) {
+        document.getElementById("emailError").innerHTML = "";
+    } else {
+        document.getElementById("emailError").innerHTML = "Invalid email.";
+    }
+});
+
+document.getElementById("mobile").addEventListener("input", function() {
+    let mobile = this.value;
+
+    if (/^\d{10}$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = "";
+    } else {
+        document.getElementById("mobileError").innerHTML = "Enter 10-digit mobile number.";
+    }
+});
+
+document.getElementById("plan").addEventListener("change", function() {
+    if (this.value == "") {
+        document.getElementById("planError").innerHTML = "Please select a plan.";
+    } else {
+        document.getElementById("planError").innerHTML = "";
+    }
+});
+
+document.getElementById("gymForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let age = document.getElementById("age").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+    let plan = document.getElementById("plan").value;
+
+    let isValid = true;
+
+    if (!/^[A-Za-z ]+$/.test(name)) {
+        document.getElementById("nameError").innerHTML = "Only letters allowed.";
+        isValid = false;
+    } else {
+        document.getElementById("nameError").innerHTML = "";
+    }
+
+    if (!(age >= 16 && age <= 60)) {
+        document.getElementById("ageError").innerHTML = "Age must be between 16 and 60.";
+        isValid = false;
+    } else {
+        document.getElementById("ageError").innerHTML = "";
+    }
+
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerHTML = "Invalid email.";
+        isValid = false;
+    } else {
+        document.getElementById("emailError").innerHTML = "";
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = "Enter 10-digit mobile number.";
+        isValid = false;
+    } else {
+        document.getElementById("mobileError").innerHTML = "";
+    }
+
+    if (plan == "") {
+        document.getElementById("planError").innerHTML = "Please select a plan.";
+        isValid = false;
+    } else {
+        document.getElementById("planError").innerHTML = "";
+    }
+
+    if (isValid) {
+        let result = document.getElementById("result");
+        result.style.display = "block";
+        result.innerHTML = "Gym Admission Successful!";
+    } else {
+        let result = document.getElementById("result");
+        result.style.display = "none";
+        result.innerHTML = "";
+        alert("Please correct the errors before submitting.");
+    }
+});
+    </script>
+
+</body>
+</html>
