@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form - Case Study</title>
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    color: black;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 560px;
+    background-color: white;
+    padding: 35px 40px;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px lightgray;
+}
+
+h2 {
+    color: darkblue;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.mandatory-note {
+    color: red;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.form-row label {
+    width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+}
+
+.input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-container input,
+.input-container select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    background-color: white;
+}
+
+.input-container input:focus,
+.input-container select:focus {
+    border-color: royalblue;
+}
+
+.required-star {
+    color: red;
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    user-select: none;
+}
+
+.dob-group {
+    display: flex;
+    gap: 8px;
+}
+
+.dob-group select {
+    flex: 1;
+    cursor: pointer;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    gap: 8px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-row label {
+    font-size: 13px;
+    color: black;
+    cursor: pointer;
+}
+
+.error-msg {
+    color: red;
+    font-size: 12px;
+    margin-left: 120px;
+    margin-bottom: 8px;
+    min-height: 14px;
+}
+
+.button-row {
+    margin-top: 18px;
+}
+
+#signUpBtn {
+    padding: 10px 24px;
+    background-color: royalblue;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#signUpBtn:hover {
+    background-color: darkblue;
+}
+
+.success-msg {
+    display: none;
+    margin-top: 20px;
+    padding: 12px 16px;
+    background-color: lightgreen;
+    color: darkgreen;
+    border: 1px solid green;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Case Study</h2>
+
+        <form id="registrationForm" onsubmit="return validateForm(event)">
+            <div class="mandatory-note">*Mandatory to fill</div>
+
+            <div class="form-row">
+                <label for="firstname">Firstname:</label>
+                <div class="input-container">
+                    <input type="text" id="firstname" name="firstname" placeholder="Enter first name">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="firstnameError"></div>
+
+            <div class="form-row">
+                <label for="lastname">Lastname:</label>
+                <div class="input-container">
+                    <input type="text" id="lastname" name="lastname" placeholder="Enter last name">
+                </div>
+            </div>
+            <div class="error-msg" id="lastnameError"></div>
+
+            <div class="form-row">
+                <label>Birthday:</label>
+                <div class="input-container dob-group">
+                    <select id="dobDay" name="dobDay">
+                        <option value="">Day</option>
+                    </select>
+                    <select id="dobMonth" name="dobMonth">
+                        <option value="">Month</option>
+                        <option value="1">Jan</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Apr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Aug</option>
+                        <option value="9">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>
+                    <select id="dobYear" name="dobYear">
+                        <option value="">Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="error-msg" id="dobError"></div>
+
+            <div class="form-row">
+                <label for="username">Username:</label>
+                <div class="input-container">
+                    <input type="text" id="username" name="username" placeholder="Enter username">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="usernameError"></div>
+
+            <div class="form-row">
+                <label for="email">E-mail:</label>
+                <div class="input-container">
+                    <input type="email" id="email" name="email" placeholder="Enter email address">
+                </div>
+            </div>
+            <div class="error-msg" id="emailError"></div>
+
+            <div class="form-row">
+                <label for="website">Website:</label>
+                <div class="input-container">
+                    <input type="url" id="website" name="website" placeholder="https://example.com">
+                </div>
+            </div>
+            <div class="error-msg" id="websiteError"></div>
+
+            <div class="form-row">
+                <label for="password">Password:</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" placeholder="Enter password">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="passwordError"></div>
+
+            <div class="form-row">
+                <label for="rePassword">Re-password:</label>
+                <div class="input-container">
+                    <input type="password" id="rePassword" name="rePassword" placeholder="Confirm password">
+                    <span class="required-star">*</span>
+                </div>
+            </div>
+            <div class="error-msg" id="rePasswordError"></div>
+
+            <div class="checkbox-row">
+                <input type="checkbox" id="terms" name="terms">
+                <label for="terms">I agree to the terms & conditions.</label>
+            </div>
+            <div class="error-msg" id="termsError"></div>
+
+            <div class="button-row">
+                <button type="submit" id="signUpBtn">Sign up</button>
+            </div>
+
+            <div id="successMsg" class="success-msg"></div>
+        </form>
+
+        <footer style="text-align: center; margin-top: 30px; font-size: 14px; color: gray; border-top: 1px solid lightgray; padding-top: 15px;">
+            Made by Rohan Laharwani PRN - 24070521055
+        </footer>
+    </div>
+
+    <script>
+let dobDay = document.getElementById("dobDay");
+for (let i = 1; i <= 31; i++) {
+    let opt = document.createElement("option");
+    opt.value = i;
+    opt.text = i;
+    dobDay.appendChild(opt);
+}
+
+let dobYear = document.getElementById("dobYear");
+let currentYear = new Date().getFullYear();
+for (let y = currentYear; y >= 1950; y--) {
+    let opt = document.createElement("option");
+    opt.value = y;
+    opt.text = y;
+    dobYear.appendChild(opt);
+}
+
+function clearErrors() {
+    let errors = document.getElementsByClassName("error-msg");
+    for (let i = 0; i < errors.length; i++) {
+        errors[i].innerHTML = "";
+    }
+}
+
+let allInputs = document.querySelectorAll("input[type='text'], input[type='email'], input[type='url'], input[type='password']");
+
+for (let i = 0; i < allInputs.length; i++) {
+    allInputs[i].addEventListener("focus", function() {
+        this.style.borderColor = "royalblue";
+    });
+
+    allInputs[i].addEventListener("blur", function() {
+        this.style.borderColor = "lightgray";
+    });
+}
+
+document.getElementById("terms").addEventListener("change", function() {
+    if (this.checked) {
+        document.getElementById("termsError").innerHTML = "";
+    }
+});
+
+function validateForm(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    clearErrors();
+    let isValid = true;
+
+    let firstname = document.getElementById("firstname").value.trim();
+    if (firstname === "") {
+        document.getElementById("firstnameError").innerHTML = "Firstname is required.";
+        isValid = false;
+    } else if (!/^[a-zA-Z]+$/.test(firstname)) {
+        document.getElementById("firstnameError").innerHTML = "Only alphabets are allowed.";
+        isValid = false;
+    }
+
+    let lastname = document.getElementById("lastname").value.trim();
+    if (lastname !== "" && !/^[a-zA-Z]+$/.test(lastname)) {
+        document.getElementById("lastnameError").innerHTML = "Only alphabets are allowed.";
+        isValid = false;
+    }
+
+    let username = document.getElementById("username").value.trim();
+    if (username === "") {
+        document.getElementById("usernameError").innerHTML = "Username is required.";
+        isValid = false;
+    } else if (username.length < 4) {
+        document.getElementById("usernameError").innerHTML = "Username must be at least 4 characters.";
+        isValid = false;
+    }
+
+    let email = document.getElementById("email").value.trim();
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email !== "" && !emailPattern.test(email)) {
+        document.getElementById("emailError").innerHTML = "Please enter a valid email address.";
+        isValid = false;
+    }
+
+    let website = document.getElementById("website").value.trim();
+    let urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    if (website !== "" && !urlPattern.test(website)) {
+        document.getElementById("websiteError").innerHTML = "Please enter a valid website URL.";
+        isValid = false;
+    }
+
+    let password = document.getElementById("password").value;
+    if (password === "") {
+        document.getElementById("passwordError").innerHTML = "Password is required.";
+        isValid = false;
+    } else if (password.length < 6) {
+        document.getElementById("passwordError").innerHTML = "Password must be at least 6 characters.";
+        isValid = false;
+    }
+
+    let rePassword = document.getElementById("rePassword").value;
+    if (rePassword === "") {
+        document.getElementById("rePasswordError").innerHTML = "Please confirm your password.";
+        isValid = false;
+    } else if (password !== rePassword) {
+        document.getElementById("rePasswordError").innerHTML = "Passwords do not match.";
+        isValid = false;
+    }
+
+    let terms = document.getElementById("terms").checked;
+    if (!terms) {
+        document.getElementById("termsError").innerHTML = "You must agree to the terms & conditions.";
+        isValid = false;
+    }
+
+    if (isValid) {
+        let successMsg = document.getElementById("successMsg");
+        successMsg.style.display = "block";
+        successMsg.innerHTML = "Registration Successful for <b>" + username + "</b>!";
+        alert("Form submitted successfully!");
+    }
+
+    return false;
+}
+
+document.getElementById("registrationForm").addEventListener("submit", validateForm);
+    </script>
+</body>
+</html>
